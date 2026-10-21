@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novasearch - Inställningar & Rapportering</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #202124;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 32px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #dfe1e5;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .brand-logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        .brand-logo span {
+            color: #ea4335;
+        }
+
+        .header-links a {
+            text-decoration: none;
+            color: #5f6368;
+            font-size: 14px;
+            margin-left: 20px;
+        }
+
+        .header-links a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .settings-card {
+            background-color: #ffffff;
+            border: 1px solid #dadce0;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 26px;
+            color: #202124;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #5f6368;
+            margin-bottom: 30px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        h2 {
+            font-size: 18px;
+            color: #1a73e8;
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+
+        .setting-group {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f3f4;
+        }
+
+        .setting-label {
+            font-size: 15px;
+            font-weight: bold;
+            color: #3c4043;
+        }
+
+        .setting-desc {
+            font-size: 13px;
+            color: #5f6368;
+        }
+
+        select, input[type="text"] {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #dadce0;
+            font-size: 14px;
+            outline: none;
+            background: #fff;
+        }
+
+        /* Rapportering / Ärenden */
+        .report-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dadce0;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        textarea:focus, input:focus {
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 2px rgba(26,115,232,0.15);
+        }
+
+        .btn-submit {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            align-self: flex-start;
+        }
+
+        .btn-submit:hover {
+            background-color: #1557b0;
+        }
+
+        .alert-box {
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .alert-success {
+            background-color: #e6f4ea;
+            color: #137333;
+            border: 1px solid #ceead6;
+        }
+
+        footer {
+            background-color: #ffffff;
+            border-top: 1px solid #dfe1e5;
+            text-align: center;
+            padding: 24px;
+            font-size: 14px;
+            color: #70757a;
+            margin-top: auto;
+        }
+
+        footer a {
+            color: #70757a;
+            text-decoration: none;
+            margin: 0 12px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="brand-logo">Nova<span>search</span></a>
+        <div class="header-links">
+            <a href="index.html">Sök</a>
+            <a href="bilder.html">Bilder</a>
+            <a href="about.html">Om oss</a>
+            <a href="login.html">Logga in</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Inställningspanel -->
+        <div class="settings-card">
+            <h1>Allmänna Inställningar</h1>
+            <div class="subtitle">Anpassa din sök- och AI-miljö på Novasearch</div>
+
+            <h2>Sökpreferenser</h2>
+            <div class="setting-group">
+                <div>
+                    <div class="setting-label">SafeSearch-filter</div>
+                    <div class="setting-desc">Filtrera bort explicit innehåll från sökresultaten.</div>
+                </div>
+                <select id="safeSearchSelect" onchange="saveSettings()">
+                    <option value="strict">Strict (Hög säkerhet)</option>
+                    <option value="moderate">Måttlig</option>
+                    <option value="off">Avstängd</option>
+                </select>
+            </div>
+
+            <div class="setting-group">
+                <div>
+                    <div class="setting-label">Nova AI Automatiska Svar</div>
+                    <div class="setting-desc">Visa intelligenta sammanfattningar automatiskt vid sökning.</div>
+                </div>
+                <select id="aiAutoSelect" onchange="saveSettings()">
+                    <option value="on">Aktiverad</option>
+                    <option value="off">Inaktiverad</option>
+                </select>
+            </div>
+
+            <div class="setting-group">
+                <div>
+                    <div class="setting-label">Spårningsskydd (Anti-Tracker)</div>
+                    <div class="setting-desc">Blockera tredjepartscookies och analysskript.</div>
+                </div>
+                <input type="checkbox" id="trackerCheck" checked onchange="saveSettings()" style="width: 20px; height: 20px; cursor: pointer;">
+            </div>
+        </div>
+
+        <!-- Rapporteringssystem -->
+        <div class="settings-card">
+            <h1>Rapportera & Ärenden</h1>
+            <div class="subtitle">Kontakta utvecklingsteamet (Blueforge Studios & Redforge Studios) vid fel eller synpunkter</div>
+
+            <form class="report-form" onsubmit="submitReport(event)">
+                <div>
+                    <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 6px;" for="reportEmail">Din e-postadress / telefonnummer</label>
+                    <input type="text" id="reportEmail" placeholder="namn@exempel.se eller +46..." required style="width: 100%;">
+                </div>
+                <div>
+                    <label style="display: block; font-size: 13px; font-weight: bold; margin-bottom: 6px;" for="reportText">Beskriv ärendet eller buggen</label>
+                    <textarea id="reportText" placeholder="Skriv din rapport här..." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Skicka rapport till Studios</button>
+            </form>
+
+            <div id="reportAlert" class="alert-box"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            <a href="about.html">Om oss</a>
+            <a href="integritet.html">Integritet</a>
+            <a href="villkor.html">Villkor</a>
+            <a href="general.html">Inställningar</a>
+        </div>
+        <div style="margin-top: 10px;">
+            &copy; 2026 Blueforge Studios & Redforge Studios. Alla rättigheter förbehållna.
+        </div>
+    </footer>
+
+    <script>
+        function saveSettings() {
+            const ss = document.getElementById('safeSearchSelect').value;
+            const ai = document.getElementById('aiAutoSelect').value;
+            const tracker = document.getElementById('trackerCheck').checked;
+
+            localStorage.setItem('nova_safesearch', ss);
+            localStorage.setItem('nova_ai_auto', ai);
+            localStorage.setItem('nova_tracker', tracker);
+
+            console.log('Inställningar sparade lokalt.');
+        }
+
+        function submitReport(e) {
+            e.preventDefault();
+            const alertBox = document.getElementById('reportAlert');
+            
+            alertBox.className = 'alert-box alert-success';
+            alertBox.innerText = 'Tack! Din rapport har skickats till Blueforge & Redforge Studios utvecklingsteam.';
+            alertBox.style.display = 'block';
+
+            document.getElementById('reportText').value = '';
+            document.getElementById('reportEmail').value = '';
+
+            setTimeout(() => {
+                alertBox.style.display = 'none';
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
