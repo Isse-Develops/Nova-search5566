@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" width="100%" height="100%">
+  <defs>
+    <!-- Gradvis tonad bakgrund/skugga för en futuristisk känsla -->
+    <linearGradient id="novaGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1a73e8" />
+      <stop offset="100%" stop-color="#4285f4" />
+    </linearGradient>
+    
+    <linearGradient id="searchGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ea4335" />
+      <stop offset="100%" stop-color="#fbbc05" />
+    </linearGradient>
+
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Bakgrund -->
+  <rect width="100%" height="100%" fill="#ffffff" rx="15" />
+
+  <!-- Avancerad Symbol / Ikon (Stjärna + Sökglas) -->
+  <g transform="translate(40, 35)">
+    <!-- Yttre ring för sökglas -->
+    <circle cx="40" cy="40" r="30" fill="none" stroke="url(#novaGradient)" stroke-width="8" filter="url(#glow)" />
+    <!-- Handtag till sökglas -->
+    <line x1="62" y1="62" x2="85" y2="85" stroke="url(#novaGradient)" stroke-width="8" stroke-linecap="round" />
+    <!-- Nova-stjärna i mitten av sökglaset -->
+    <path d="M40 20 L45 35 L60 40 L45 45 L40 60 L35 45 L20 40 L35 35 Z" fill="url(#searchGradient)" />
+  </g>
+
+  <!-- Text: Nova (Blå) -->
+  <text x="145" y="95" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700" fill="url(#novaGradient)" letter-spacing="-2">Nova</text>
+
+  <!-- Text: search (Röd/Orange) -->
+  <text x="295" y="95" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700" fill="url(#searchGradient)" letter-spacing="-2">search</text>
+
+  <!-- Subtitel / Detaljlinje -->
+  <line x1="148" y1="110" x2="445" y2="110" stroke="#dadce0" stroke-width="2" stroke-linecap="round" />
+  <circle cx="445" cy="110" r="4" fill="#1a73e8" />
+</svg>
