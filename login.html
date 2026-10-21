@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novasearch - Konto & Inloggning</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #202124;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 30px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #dfe1e5;
+        }
+
+        .brand-logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        .brand-logo span {
+            color: #ea4335;
+        }
+
+        .header-links a {
+            text-decoration: none;
+            color: #5f6368;
+            font-size: 14px;
+            margin-left: 20px;
+        }
+
+        .header-links a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .auth-card {
+            background-color: #ffffff;
+            border: 1px solid #dadce0;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 420px;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .auth-header h1 {
+            font-size: 24px;
+            color: #202124;
+            margin-bottom: 8px;
+        }
+
+        .auth-header p {
+            font-size: 14px;
+            color: #5f6368;
+        }
+
+        /* Flikar för att växla mellan Logga in / Registrera */
+        .auth-tabs {
+            display: flex;
+            border-bottom: 2px solid #f1f3f4;
+            margin-bottom: 24px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 12px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #5f6368;
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            color: #1a73e8;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: #1a73e8;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            color: #3c4043;
+            margin-bottom: 6px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #dadce0;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus {
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 3px rgba(26,115,232,0.15);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: #1a73e8;
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: #1557b0;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .alert-box {
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert-success {
+            background-color: #e6f4ea;
+            color: #137333;
+            border: 1px solid #ceead6;
+        }
+
+        footer {
+            background-color: #ffffff;
+            border-top: 1px solid #dfe1e5;
+            text-align: center;
+            padding: 16px;
+            font-size: 14px;
+            color: #70757a;
+        }
+
+        footer a {
+            color: #70757a;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="brand-logo">Nova<span>search</span></a>
+        <div class="header-links">
+            <a href="index.html">Sök</a>
+            <a href="bilder.html">Bilder</a>
+            <a href="general.html">Inställningar</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>Novasearch Konto</h1>
+                <p>Hantera dina sökupplevelser och AI-preferenser</p>
+            </div>
+
+            <!-- Flikar -->
+            <div class="auth-tabs">
+                <button class="tab-btn active" onclick="switchTab('login')">Logga in</button>
+                <button class="tab-btn" onclick="switchTab('register')">Skapa konto</button>
+            </div>
+
+            <div id="alertBox" class="alert-box"></div>
+
+            <!-- INLOGGNINGSFORMULÄR -->
+            <form id="loginForm" class="form-section active" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">E-postadress</label>
+                    <input type="email" id="loginEmail" placeholder="namn@exempel.se" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Lösenord</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-submit">Logga in</button>
+            </form>
+
+            <!-- REGISTRERINGSMULÄR -->
+            <form id="registerForm" class="form-section" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="regName">Fullständigt namn</label>
+                    <input type="text" id="regName" placeholder="Förnamn Efternamn" required>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">E-postadress</label>
+                    <input type="email" id="regEmail" placeholder="namn@exempel.se" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Välj lösenord</label>
+                    <input type="password" id="regPassword" placeholder="Minst 6 tecken" required>
+                </div>
+                <button type="submit" class="btn-submit">Registrera konto</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            <a href="about.html">Om Novasearch</a>
+            <a href="general.html">Rapportera</a>
+            <a href="general.html">Innehållsfilter</a>
+        </div>
+    </footer>
+
+    <script>
+        // Växla mellan flikarna
+        function switchTab(tab) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const sections = document.querySelectorAll('.form-section');
+            document.getElementById('alertBox').style.display = 'none';
+
+            tabs.forEach(t => t.classList.remove('active'));
+            sections.forEach(s => s.classList.remove('active'));
+
+            if (tab === 'login') {
+                tabs[0].classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('registerForm').classList.add('active');
+            }
+        }
+
+        // Hantera inloggning
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const alertBox = document.getElementById('alertBox');
+            
+            alertBox.className = 'alert-box alert-success';
+            alertBox.innerText = `Inloggning lyckades för ${email}! Omdirigerar till startsidan...`;
+            alertBox.style.display = 'block';
+
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        }
+
+        // Hantera registrering
+        function handleRegister(event) {
+            event.preventDefault();
+            const name = document.getElementById('regName').value;
+            const alertBox = document.getElementById('alertBox');
+            
+            alertBox.className = 'alert-box alert-success';
+            alertBox.innerText = `Välkommen till Novasearch, ${name}! Ditt konto har skapats.`;
+            alertBox.style.display = 'block';
+
+            setTimeout(() => {
+                switchTab('login');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
